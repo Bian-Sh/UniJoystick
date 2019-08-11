@@ -29,6 +29,14 @@
 
 ![](DocAssets/UniJoystick.gif)
 
+You can use it everywhere as you wish .
+
+As we use UGUI components for this joystick which made it suitable for every situation that Eventsystem surported.
+
+No matter cell phone or other tuio device such as surface pro.
+
+No matter one or much more instance of Joystick at the same time or on the same screen is ok .
+
 > My Blog
 
 [[Unity 3d] 使用UGUI做一个类似王者荣耀的摇杆 - 简书]( https://www.jianshu.com/p/2b2cdccafef4)
