@@ -46,7 +46,7 @@
         // 摇杆被触发，初始化摇杆
         void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
         {
-            if (IsDraging) return; //适配 Touch：只响应一个Touch
+            if (eventData.pointerId<-1||IsDraging) return; //适配 Touch：只响应一个Touch；适配鼠标：只响应左键
             fingerId = eventData.pointerId;
             backGroundPressedPostion = new Vector3() // As it is too long for trinocular operation so I create Vector3 like this.
             {
