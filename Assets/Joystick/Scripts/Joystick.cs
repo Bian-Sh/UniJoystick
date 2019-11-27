@@ -52,9 +52,9 @@ namespace zFrame.UI
             if (eventData.pointerId < -1 || IsDraging) return; //适配 Touch：只响应一个Touch；适配鼠标：只响应左键
             fingerId = eventData.pointerId;
             pointerDownPosition = eventData.position;
-            pointerDownPosition[2] = eventData.pressEventCamera?.WorldToScreenPoint(backGround.position).z ?? backGround.position.z;
             if (dynamic)
             {
+                pointerDownPosition[2] = eventData.pressEventCamera?.WorldToScreenPoint(backGround.position).z ?? backGround.position.z;
                 backGround.position = eventData.pressEventCamera?.ScreenToWorldPoint(pointerDownPosition) ?? pointerDownPosition; ;
             }
             OnPointerDown.Invoke(eventData.position);
