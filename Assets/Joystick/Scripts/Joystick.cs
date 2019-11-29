@@ -1,4 +1,4 @@
-﻿// Copyright (c) Bian Shanghai
+// Copyright (c) Bian Shanghai
 // https://github.com/Bian-Sh/UniJoystick
 // Licensed under the MIT license. See the LICENSE.md file in the project root for more information.
 namespace zFrame.UI
@@ -16,8 +16,8 @@ namespace zFrame.UI
         [EnumFlags]
         public Direction activatedAxis = (Direction)(-1); //选择激活的轴向
         [SerializeField] bool dynamic = true; // 动态摇杆
-        [SerializeField] RectTransform handle; //摇杆
-        [SerializeField] RectTransform backGround; //背景
+        [SerializeField] Transform handle; //摇杆
+        [SerializeField] Transform backGround; //背景
         public JoystickEvent OnValueChanged = new JoystickEvent(); //事件 ： 摇杆被 拖拽时
         public JoystickEvent OnPointerDown = new JoystickEvent(); // 事件： 摇杆被按下时
         public JoystickEvent OnPointerUp = new JoystickEvent(); //事件 ： 摇杆上抬起时
@@ -41,7 +41,7 @@ namespace zFrame.UI
         private void Awake() => backGroundOriginLocalPostion = backGround.localPosition;
         void Update()
         {
-            if (IsDraging) OnValueChanged.Invoke(handle.anchoredPosition / maxRadius); //仅当摇杆拖拽时驱动事件
+            if (IsDraging) OnValueChanged.Invoke(handle.localPosition / maxRadius); //仅当摇杆拖拽时驱动事件
         }
         void OnDisable() => RestJoystick(); //意外被 Disable 各单位需要被重置
         #endregion
@@ -107,14 +107,8 @@ namespace zFrame.UI
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            if (null == handle)
-            {
-                handle = transform.Find("BackGround/Handle") as RectTransform;
-            }
-            if (null == backGround)
-            {
-                backGround = transform.Find("BackGround") as RectTransform;
-            }
+            if (null == handle) handle = transform.Find("BackGround/Handle");
+            if (null == backGround) backGround = transform.Find("BackGround");
             ConfigJoystick();
         }
 #endif
