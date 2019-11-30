@@ -7,8 +7,6 @@ namespace zFrame.UI
     using UnityEngine.EventSystems;
     using UnityEngine.Events;
     using UnityEngine.UI;
-    using System.Threading.Tasks;
-    using zFrame.Example;
 
     public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
@@ -39,10 +37,7 @@ namespace zFrame.UI
         }
         #region MonoBehaviour functions
         private void Awake() => backGroundOriginLocalPostion = backGround.localPosition;
-        void Update()
-        {
-            if (IsDraging) OnValueChanged.Invoke(handle.localPosition / maxRadius); //仅当摇杆拖拽时驱动事件
-        }
+        void Update()=>OnValueChanged.Invoke(handle.localPosition / maxRadius); //仅当摇杆拖拽时驱动事件
         void OnDisable() => RestJoystick(); //意外被 Disable 各单位需要被重置
         #endregion
 
@@ -86,22 +81,14 @@ namespace zFrame.UI
         {
             backGround.localPosition = backGroundOriginLocalPostion;
             handle.localPosition = Vector3.zero;
-            await Task.Delay(2); //延迟一丢丢（Disable无法使用协程）。
-            fingerId = int.MinValue; //fingerId 的重置只能写在最后，加上一帧的延迟，保证拖拽事件结束时，用户能收Vector2.zero。
+            fingerId = int.MinValue; 
         }
 
         void ConfigJoystick() //配置动态/静态摇杆
         {
-            if (cachedDynamicJoystick != dynamic)
-            {
-                if (!dynamic)
-                {
-                    backGroundOriginLocalPostion = backGround.localPosition;
-                }
+                if (!dynamic) backGroundOriginLocalPostion = backGround.localPosition;
                 GetComponent<Image>().raycastTarget = dynamic;
                 handle.GetComponent<Image>().raycastTarget = !dynamic;
-                cachedDynamicJoystick = dynamic;
-            }
         }
 
 #if UNITY_EDITOR
@@ -112,7 +99,6 @@ namespace zFrame.UI
             ConfigJoystick();
         }
 #endif
-        private bool cachedDynamicJoystick = true;
         private Vector3 backGroundOriginLocalPostion, pointerDownPosition;
         private int fingerId = int.MinValue; //当前触发摇杆的 pointerId ，预设一个永远无法企及的值
         [System.Serializable] public class JoystickEvent : UnityEvent<Vector2> { }
