@@ -77,7 +77,7 @@ namespace zFrame.UI
         #endregion
 
         #region Assistant functions / fields / structures
-        async void RestJoystick()
+        void RestJoystick()
         {
             backGround.localPosition = backGroundOriginLocalPostion;
             handle.localPosition = Vector3.zero;
