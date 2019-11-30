@@ -1,4 +1,4 @@
-﻿namespace zFrame.Example
+﻿namespace zFrame.UI
 {
     using UnityEditor;
     using UnityEngine;
