@@ -37,7 +37,7 @@ namespace zFrame.UI
         }
         #region MonoBehaviour functions
         private void Awake() => backGroundOriginLocalPostion = backGround.localPosition;
-        void Update()=>OnValueChanged.Invoke(handle.localPosition / maxRadius); //仅当摇杆拖拽时驱动事件
+        void Update()=>OnValueChanged.Invoke(handle.localPosition / maxRadius); 
         void OnDisable() => RestJoystick(); //意外被 Disable 各单位需要被重置
         #endregion
 
@@ -94,8 +94,8 @@ namespace zFrame.UI
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            if (null == handle) handle = transform.Find("BackGround/Handle");
-            if (null == backGround) backGround = transform.Find("BackGround");
+            if (!handle) handle = transform.Find("BackGround/Handle");
+            if (!backGround) backGround = transform.Find("BackGround");
             ConfigJoystick();
         }
 #endif
