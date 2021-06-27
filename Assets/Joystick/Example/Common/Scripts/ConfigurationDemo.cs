@@ -10,18 +10,34 @@ namespace zFrame.Example
     {
         public Joystick joystick;
         Text text;
-        public Text text2;
+
+#if UNITY_EDITOR
+        private void OnGUI()
+        {
+            GUILayout.Label("本例\n1. 可以观察到摇杆按下抬起事件的触发\n2. 可见摇杆数据的变化\n3. 通过键盘 R 键切换动态/静态摇杆\n4. 按下键盘 F 键显示/隐藏指向器");
+        }
+#endif
+
         void Start()
         {
             text = GetComponent<Text>();
-            joystick.OnValueChanged.AddListener(v => text.text = string.Format("Horizontal ：{0} \nVertical：{1}", v.x, v.y));
+#if UNITY_EDITOR
+            joystick.OnPointerDown.AddListener(v => Debug.Log($"{nameof(ConfigurationDemo)}: 摇杆被按下！ "));
+            joystick.OnPointerUp.AddListener(v => Debug.Log($"{nameof(ConfigurationDemo)}: 摇杆被释放！ "));
+#endif
+            joystick.OnValueChanged.AddListener(v => text.text = $"Horizontal ：{v.x} \nVertical：{v.y}");
         }
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                joystick.DynamicJoystick = !joystick.DynamicJoystick;
-                text2.text = joystick.DynamicJoystick ? "切换为动态摇杆" : "切换成静态摇杆";
+                joystick.IsDynamic = !joystick.IsDynamic;
+                Debug.Log($"{nameof(ConfigurationDemo)}: {(joystick.IsDynamic ? "切换为动态摇杆" : "切换成静态摇杆")}");
+            }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                joystick.ShowDirectionArrow = !joystick.ShowDirectionArrow;
+                Debug.Log($"{nameof(ConfigurationDemo)}: {(joystick.ShowDirectionArrow ? "展示指向器" : "隐藏指向器")}");
             }
         }
     }

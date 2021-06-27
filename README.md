@@ -5,16 +5,18 @@
 
 # Summary
 1. 支持设置摇杆半径范围
-2. 支持挂载指示器（指示器已经剥离成独立可选挂件）
+2. 支持挂载指示器（~~指示器已经剥离成独立可选挂件~~）  又整合在一起了，哎，就是玩儿
 3. 支持配置哪一个轴向使能。
 4. 支持一键将摇杆设置为动态底座摇杆或者静态底座摇杆
 5. 事件驱动，使用UnityEvent 使得事件可以在面板上挂载
-6. 本仓库配备了3个摇杆控制解决方案（Demo，仅供参考）：
+6. 本仓库配备了4个摇杆控制解决方案（Demo，仅供参考）：
     * 第一人称 Charactor 控制
+    * 第一人称 character 控制，带TouchPad版本
     * 第三人称 Charactor 控制
     * 常规Transform.Translate控制
 7. 适配 Canvas 的 三种 RenderMode。
 8. 几乎每句代码都热情洋溢充满注释。
+9. 鼠标和Touch拖拽前需要检测是否打到 UI 组件，这里有![正确的姿势](https://github.com/Bian-Sh/UniJoystick/blob/master/Assets/Joystick/Scripts/InputExtension.cs)
 
 # How to use?
 
@@ -56,6 +58,18 @@
 > 第三人称解决方案示例
 
 ![](DocAssets/ThirdPersonSolution.gif)
+
+> 第一人称解决方案示例 (TouchPad版)
+
+![](DocAssets/FirstPersonSolution-touchpad.gif)
+
+视频中演示了如下内容：
+1. 摇杆驱动人物移动
+2. TouchPad 旋转视角
+3. TouchPad 的灵敏度调节
+4. TouchPad UI 检测，UI上开始的拖拽不触发旋转 ，UI的点击操作不会误触视野旋转功能
+5. TouchPad 测试了响应多个手指的体验，还算正常
+
 
 # 结语
 

@@ -8,7 +8,7 @@ namespace zFrame.Example
     using zFrame.UI;
     public class ThirdPersonSolution : MonoBehaviour
     {
-        [SerializeField] Joystick joystick;
+       public Joystick joystick;
         public float speed = 5;
         CharacterController controller;
         void Start()

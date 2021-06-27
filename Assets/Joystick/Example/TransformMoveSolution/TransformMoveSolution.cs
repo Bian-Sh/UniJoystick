@@ -7,7 +7,7 @@ namespace zFrame.Example
     using zFrame.UI;
     public class TransformMoveSolution : MonoBehaviour
     {
-        [SerializeField] Joystick joystick;
+        public Joystick joystick;
         public float speed = 5;
         void Start()
         {
