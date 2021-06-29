@@ -5,6 +5,10 @@ using static InputExtension;
 
 public class TouchPad : MonoBehaviour
 {
+    /// <summary>
+    /// 以此字符开头的UI不会阻碍 TouchPad 拖拽
+    /// </summary>
+    public string filterPrefix = "#";
     public TouchPadEvent OnTouchPadValueChanged = new TouchPadEvent();
     [System.Serializable]
     public class TouchPadEvent : UnityEvent<Vector2> { }
@@ -22,7 +26,7 @@ public class TouchPad : MonoBehaviour
                 if (index == -1)
                 {
                     //2. 收集有效 Touch ，其特点为：刚按下 + 没打到UI上 + 在屏幕右侧
-                    if (item.phase == TouchPhase.Began && item.position.x > Screen.width * 0.5f && !item.IsRaycastUI())
+                    if (item.phase == TouchPhase.Began && item.position.x > Screen.width * 0.5f && !item.IsRaycastUI(filterPrefix))
                     {
                         fingerIds.Add(item);
                     }
@@ -51,11 +55,23 @@ public class TouchPad : MonoBehaviour
         }
 
 #if UNITY_EDITOR
-        // 仅供编辑器测试，如果不从 TouchPad 移除，由于存在 mouse simulate 功能，会紊乱 Touch.IsRaycastUI 检测逻辑
-        //For editor testing only. If it is not removed from the TouchPad, the detection logic of Touch.IsRaycastUI will be disrupted due to the mouse simulate function
-        var h = Input.GetAxis("Mouse X");
-        var v = Input.GetAxis("Mouse Y");
-        OnTouchPadValueChanged.Invoke(new Vector2(h, v));
+        // 仅供编辑器测试
+        if (Input.GetMouseButtonDown(1)&&!IsMouseRaycastUI("#"))
+        {
+            canmove = true;
+        }
+        if (Input .GetMouseButtonUp(1))
+        {
+            canmove = false;
+        }
+        if (Input.GetMouseButton(1)&&canmove)
+        {
+            var h = Input.GetAxis("Mouse X");
+            var v = Input.GetAxis("Mouse Y");
+            OnTouchPadValueChanged.Invoke(new Vector2(h, v));
+        }
 #endif
     }
+    private bool canmove;
+
 }

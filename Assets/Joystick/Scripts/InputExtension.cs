@@ -13,7 +13,7 @@ namespace Example
         int button = 0;//鼠标左键 
         private void Update()
         {
-            if (Input.GetMouseButton(button) &&! IsMouseRaycastUI) 
+            if (Input.GetMouseButton(button) &&! IsMouseRaycastUI()) 
             {
                 canmove = true;
             }
@@ -37,15 +37,21 @@ public static class InputExtension
     /// 判断Touch 按下时是否打到了 UI 组件。
     /// Determine whether the UI component is hit when touch begin.
     /// </summary>
-    public static bool IsRaycastUI(this Touch touch)=>Raycast(touch.position);
+    public static bool IsRaycastUI(this Touch touch,string filter="")=>Raycast(touch.position,filter);
 
     /// <summary>
     /// 判断指定按键按下时是否打到了 UI 组件。
     /// Determine whether the UI component is hit when the specified mouse button is pressed.
     /// </summary>
-    public static bool IsMouseRaycastUI { get => Raycast(Input.mousePosition); }
+    public static bool IsMouseRaycastUI(string filter="")=>Raycast(Input.mousePosition,filter); 
     
-    static bool Raycast(Vector2 position)
+    /// <summary>
+    /// 执行射线检测确认是否打到了UI
+    /// </summary>
+    /// <param name="position">Touch 或者 光标所在的位置</param>
+    /// <param name="filterPrefix">希望忽略的UI，有些情况下，从UI上开始拖拽也要旋转视野，如手游CF的狙击开镜+拖拽 ，注意：优先判断底层节点</param>
+    /// <returns></returns>
+    static bool Raycast(Vector2 position,string filterPrefix)
     {
         if (!EventSystem.current && !EventSystem.current.IsPointerOverGameObject()) return false;// 事件系统有效且射线有撞击到物体
         var data = new PointerEventData(EventSystem.current)
@@ -55,6 +61,6 @@ public static class InputExtension
         };
         var list = new List<RaycastResult>();
         EventSystem.current.RaycastAll(data, list);
-        return list.Count > 0 && list[0].module is GraphicRaycaster;
+        return list.Count > 0 && list[0].module is GraphicRaycaster&&!list[0].gameObject.name.StartsWith(filterPrefix);
     }
 }
