@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) Bian Shanghai
+// https://github.com/Bian-Sh/UniJoystick
+// Licensed under the MIT license. See the LICENSE.md file in the project root for more information.
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

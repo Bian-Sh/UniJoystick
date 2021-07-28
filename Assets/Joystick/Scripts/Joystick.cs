@@ -38,7 +38,7 @@ namespace zFrame.UI
 
         #region MonoBehaviour functions
         void Awake() => backGroundOriginLocalPostion = backGround.localPosition;
-        void Update() => OnValueChanged.Invoke(handle.localPosition / maxRadius); 
+        void FixedUpdate() => OnValueChanged.Invoke(handle.localPosition / maxRadius); 
         void OnDisable() => RestJoystick(); //意外被 Disable 各单位需要被重置
         void OnValidate() => ConfigJoystick(); //Inspector 发生改变，各单位需要重新配置，编辑器有效
         void Reset() => InitJoystick();

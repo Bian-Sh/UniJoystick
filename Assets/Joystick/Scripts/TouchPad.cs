@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) Bian Shanghai
+// https://github.com/Bian-Sh/UniJoystick
+// Licensed under the MIT license. See the LICENSE.md file in the project root for more information.
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using static InputExtension;
@@ -16,13 +19,14 @@ public class TouchPad : MonoBehaviour
     //记录的那些不在UI上触发的点 ，matian
     private List<Touch> fingerIds = new List<Touch>();
 
-    private void Update()
+    private void Update() //不要使用 FixedUpdate 感觉 Touch 不能正确同步状态
     {
         if (Input.touchCount > 0)
         {
             foreach (var item in Input.touches)
             {
                 int index = fingerIds.FindIndex(touch => touch.fingerId == item.fingerId);
+                //1. 如果 Touch 未被收录，考虑收录之
                 if (index == -1)
                 {
                     //2. 收集有效 Touch ，其特点为：刚按下 + 没打到UI上 + 在屏幕右侧
@@ -33,7 +37,7 @@ public class TouchPad : MonoBehaviour
                 }
                 else
                 {
-                    if (item.phase == TouchPhase.Ended)
+                    if (item.phase == TouchPhase.Ended || item.phase == TouchPhase.Canceled)
                     {
                         fingerIds.RemoveAt(index); //3. 如果此Touch 已失效（unity 会回传 phase = end 的 touch），则剔除之
                     }
@@ -43,7 +47,6 @@ public class TouchPad : MonoBehaviour
                     }
                 }
             }
-
             //5. 有效Touch 处于 move 则可以驱动事件了：
             foreach (var item in fingerIds)
             {
@@ -55,16 +58,16 @@ public class TouchPad : MonoBehaviour
         }
 
 #if UNITY_EDITOR
-        // 仅供编辑器测试
-        if (Input.GetMouseButtonDown(1)&&!IsMouseRaycastUI("#"))
+        // 仅供编辑器测试, 如此段代码编译到移动端由于 Unity 默认开启 Touch 模拟鼠标功能而导致 TouchPad 表现异常
+        if (Input.GetMouseButtonDown(1) && !IsMouseRaycastUI("#"))
         {
             canmove = true;
         }
-        if (Input .GetMouseButtonUp(1))
+        if (Input.GetMouseButtonUp(1))
         {
             canmove = false;
         }
-        if (Input.GetMouseButton(1)&&canmove)
+        if (Input.GetMouseButton(1) && canmove)
         {
             var h = Input.GetAxis("Mouse X");
             var v = Input.GetAxis("Mouse Y");

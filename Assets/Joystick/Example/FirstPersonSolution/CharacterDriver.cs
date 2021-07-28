@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿// Copyright (c) Bian Shanghai
+// https://github.com/Bian-Sh/UniJoystick
+// Licensed under the MIT license. See the LICENSE.md file in the project root for more information.
+using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
