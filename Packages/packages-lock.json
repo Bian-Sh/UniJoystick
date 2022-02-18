@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.bshsf.joystick": {
+      "version": "file:Joystick",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
@@ -69,6 +75,15 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.package-validation-suite": {
+      "version": "0.7.10-preview",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "nuget.mono-cecil": "0.1.6-preview"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.purchasing": {
       "version": "2.1.1",
       "depth": 0,
@@ -113,6 +128,17 @@
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
       }
+    },
+    "com.unity.upm.develop": {
+      "version": "0.1.2-preview",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.test-framework": "1.1.9",
+        "nuget.mono-cecil": "0.1.6-preview",
+        "com.unity.package-validation-suite": "0.7.10-preview"
+      },
+      "url": "https://packages.unity.com"
     },
     "com.unity.xr.legacyinputhelpers": {
       "version": "2.1.4",

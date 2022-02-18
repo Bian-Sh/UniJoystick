@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Joystick/Example/FirstPersonSolution/Demo-TouchPad.unity
+    path: Assets/Joystick/Example/Scenes/FirstPerson-TouchPad.unity
     guid: 7851d4f76cfa4bc46b8d40aca6d00e30
   m_configObjects: {}

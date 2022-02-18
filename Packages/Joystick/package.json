@@ -1,0 +1,15 @@
+{
+  "name": "com.bshsf.joystick",
+  "displayName": "Joystick",
+  "version": "1.0.0",
+  "unity": "2019.4",
+  "description": "Unity UGUI Joystick\n\u8fd9\u662f\u4e00\u4e2a\u57fa\u4e8e UGUI \u7684\u7b80\u7ea6\u800c\u4e0d\u7b80\u5355\u7684\u6447\u6746\u7ec4\u4ef6\n\u793a\u4f8b\u4e2d\u63d0\u4f9b\u591a\u4e2a\u6447\u6746\u63a7\u5236\u89e3\u51b3\u65b9\u6848\uff0c\u4ec5\u4f9b\u53c2\u8003\u3002",
+  "type": "library",
+  "samples": [
+    {
+      "displayName": "Joystick Examples",
+      "description": "提供多个测试用例",
+      "path": "Samples~/Example"
+    }
+  ]
+}
