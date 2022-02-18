@@ -44,7 +44,12 @@ public class JoystickEditor : Editor
         path = $"{path}Texture/JoyStick.png";
         var texture = AssetDatabase.LoadAllAssetsAtPath(path)
                                    .OfType<Sprite>()
+                                   .OrderBy(v=>v.name)
                                    .ToArray();
+        foreach (var item in texture)
+        {
+            Debug.Log($"{nameof(JoystickEditor)}: {item.name}");
+        }
         var image = bg.GetComponent<Image>();
         image.sprite = texture[0];
         image = knob.GetComponent<Image>();
