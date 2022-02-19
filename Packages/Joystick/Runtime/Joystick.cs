@@ -9,13 +9,13 @@ namespace zFrame.UI
 {
     public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
-        public float maxRadius = 38; //Handle 移动最大半径
+        public float maxRadius = 38; //摇杆移动最大半径
         public Direction activatedAxis = Direction.Both; //选择激活的轴向
         [SerializeField] bool dynamic = true; // 是否为动态摇杆
         [SerializeField] bool showDirectionArrow = true; // 是否展示指向器
-      [Space(8)]
+        [Space(8)]
         public JoystickEvent OnValueChanged = new JoystickEvent(); //事件 ： 摇杆被 拖拽时
-        
+
         #region Property
         public bool IsDraging { get { return fingerId != int.MinValue; } } //摇杆拖拽状态
         public bool ShowDirectionArrow { get => showDirectionArrow; set => showDirectionArrow = value; }  // 是否展示指向器
@@ -35,7 +35,7 @@ namespace zFrame.UI
 
         #region MonoBehaviour functions
         void Start() => backGroundOriginLocalPostion = backGround.localPosition;
-        void FixedUpdate() => OnValueChanged.Invoke(handle.localPosition / maxRadius);
+        void FixedUpdate() => OnValueChanged.Invoke(knob.localPosition / maxRadius);
         void OnDisable() => RestJoystick(); //意外被 Disable 各单位需要被重置
         void OnValidate() => ConfigJoystick(); //Inspector 发生改变，各单位需要重新配置，编辑器有效
         #endregion
@@ -64,11 +64,11 @@ namespace zFrame.UI
                 x = (activatedAxis == Direction.Both || activatedAxis == Direction.Horizontal) ? (direction.normalized * radius).x : 0, //确认是否激活水平轴向
                 y = (activatedAxis == Direction.Both || activatedAxis == Direction.Vertical) ? (direction.normalized * radius).y : 0       //确认是否激活垂直轴向，激活就搞事情
             };
-            handle.localPosition = localPosition;      //更新 Handle 位置
+            knob.localPosition = localPosition;      //更新 Handle 位置
             if (showDirectionArrow)
             {
-                if (!directionArrow.gameObject.activeInHierarchy) directionArrow.gameObject.SetActive(true);
-                directionArrow.localEulerAngles = new Vector3(0, 0, Vector2.SignedAngle(Vector2.right, localPosition));
+                if (!arrow.gameObject.activeInHierarchy) arrow.gameObject.SetActive(true);
+                arrow.localEulerAngles = new Vector3(0, 0, Vector2.SignedAngle(Vector2.right, localPosition));
             }
         }
 
@@ -84,8 +84,8 @@ namespace zFrame.UI
         void RestJoystick()  //重置摇杆数据
         {
             backGround.localPosition = backGroundOriginLocalPostion;
-            handle.localPosition = Vector3.zero;
-            directionArrow.gameObject.SetActive(false);
+            knob.localPosition = Vector3.zero;
+            arrow.gameObject.SetActive(false);
             fingerId = int.MinValue;
         }
 
@@ -98,9 +98,9 @@ namespace zFrame.UI
 
         [HideInInspector] public JoystickEvent OnPointerDown = new JoystickEvent(); // 事件： 摇杆被按下时
         [HideInInspector] public JoystickEvent OnPointerUp = new JoystickEvent(); //事件 ： 摇杆上抬起时
-        [SerializeField, HideInInspector] public Transform handle; //摇杆
+        [SerializeField, HideInInspector] public Transform knob; //摇杆
         [SerializeField, HideInInspector] public Transform backGround; //背景
-        [SerializeField, HideInInspector] public Transform directionArrow; //指向器
+        [SerializeField, HideInInspector] public Transform arrow; //指向器
         private Vector3 backGroundOriginLocalPostion, pointerDownPosition;
         private int fingerId = int.MinValue; //当前触发摇杆的 pointerId ，预设一个永远无法企及的值
         [System.Serializable] public class JoystickEvent : UnityEvent<Vector2> { }
