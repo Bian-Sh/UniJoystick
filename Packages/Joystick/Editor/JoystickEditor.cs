@@ -10,8 +10,7 @@ using System.Linq;
 using UnityEngine.UI;
 using System.IO;
 
-[CustomEditor(typeof(Joystick))]
-public class JoystickEditor : Editor
+public class JoystickEditor 
 {
     /// <summary>
     /// 不要使用脚本动态调用此接口
@@ -46,10 +45,6 @@ public class JoystickEditor : Editor
                                    .OfType<Sprite>()
                                    .OrderBy(v=>v.name)
                                    .ToArray();
-        foreach (var item in texture)
-        {
-            Debug.Log($"{nameof(JoystickEditor)}: {item.name}");
-        }
         var image = bg.GetComponent<Image>();
         image.sprite = texture[0];
         image = knob.GetComponent<Image>();
