@@ -33,8 +33,8 @@ public class JoystickEditor
         // 挂载 Joystick 组件并初始化引用
         var joystick = go.AddComponent<Joystick>();
         joystick.backGround = bg.transform;
-        joystick.handle = knob.transform;
-        joystick.directionArrow = arrow.transform;
+        joystick.knob = knob.transform;
+        joystick.arrow = arrow.transform;
 
         //挂载贴图
         MonoScript mono = MonoScript.FromMonoBehaviour(joystick);
@@ -69,10 +69,7 @@ public class JoystickEditor
         // 以下代码通过反射获取 UGUI 中新增 UI 组件的体验：会自动构建 UI 运行环境
         try
         {
-            var asm = AppDomain.CurrentDomain.GetAssemblies()
-                                .Where(v => v.FullName.Contains("UnityEditor.UI"))
-                                .FirstOrDefault();
-            Type type = asm.GetType("UnityEditor.UI.MenuOptions");
+            Type type = Type.GetType("UnityEditor.UI.MenuOptions,UnityEditor.UI.dll", true);
             var method = type.GetMethod("PlaceUIElementRoot", BindingFlags.Static | BindingFlags.NonPublic);
             method.Invoke(null, new object[] { go, cmd });
         }
