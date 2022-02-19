@@ -35,6 +35,8 @@ If you want to set a target version, uses the tag so you can specify a version l
 
 # How to use?
 
+![](./doc/addjoystick.gif)
+
 1. Hierarchy 右键选择 “UI/Joystick” 生成摇杆（按需更换 UI 素材）。
 2. 在关注摇杆数据的地方获取摇杆实例并注册 OnValueChanged 事件
 3. 点击运行即可。
