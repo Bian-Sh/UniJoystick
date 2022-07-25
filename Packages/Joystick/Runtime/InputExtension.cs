@@ -37,16 +37,16 @@ namespace Example
 public static class InputExtension
 {
     /// <summary>
-    /// 判断Touch 按下时是否打到了 UI 组件。
-    /// Determine whether the UI component is hit when touch begin.
+    /// 判断Touch 按下时是否打到了 UI 组件。filter必须设定非空默认值，因为任意字符串StartWith（“”）永远返回 true
+    /// <br>Determine whether the UI component is hit when touch begin. the filter must have a nonempty value as string.StartWith（“”）always reture true</br>
     /// </summary>
-    public static bool IsRaycastUI(this Touch touch,string filter="")=>Raycast(touch.position,filter);
+    public static bool IsRaycastUI(this Touch touch,string filter="#")=>Raycast(touch.position,filter);
 
     /// <summary>
-    /// 判断指定按键按下时是否打到了 UI 组件。
-    /// Determine whether the UI component is hit when the specified mouse button is pressed.
+    /// 判断指定按键按下时是否打到了 UI 组件。filter必须设定非空默认值，因为任意字符串StartWith（“”）永远返回 true
+    /// <br>Determine whether the UI component is hit when the specified mouse button is pressed.the filter must have a nonempty value as string.StartWith（“”）always reture true</br>
     /// </summary>
-    public static bool IsMouseRaycastUI(string filter="")=>Raycast(Input.mousePosition,filter); 
+    public static bool IsMouseRaycastUI(string filter="#")=>Raycast(Input.mousePosition,filter); 
     
     /// <summary>
     /// 执行射线检测确认是否打到了UI
