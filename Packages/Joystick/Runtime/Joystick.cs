@@ -35,7 +35,7 @@ namespace zFrame.UI
 
         #region MonoBehaviour functions
         void Start() => backGroundOriginLocalPostion = backGround.localPosition;
-        void FixedUpdate() => OnValueChanged.Invoke(knob.localPosition / maxRadius);
+        void Update() => OnValueChanged.Invoke(knob.localPosition / maxRadius); //fixedupdate 为物理更新，摇杆操作放在常规 update 就好
         void OnDisable() => RestJoystick(); //意外被 Disable 各单位需要被重置
         void OnValidate() => ConfigJoystick(); //Inspector 发生改变，各单位需要重新配置，编辑器有效
         #endregion
