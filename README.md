@@ -89,6 +89,14 @@ If you want to set a target version, uses the tag so you can specify a version l
 4. TouchPad UI 检测，UI上开始的拖拽不触发旋转 ，UI的点击操作不会误触视野旋转功能
 5. TouchPad 测试了响应多个手指的体验，还算正常
 
+# 友情提醒
+
+如果使用不同的unity导致了控制台各种报错，删除 package.json 即可，路径如下：
+
+![](https://user-images.githubusercontent.com/24520547/182322764-9e83d37e-e19f-4e3b-a404-e9a29c57f2ed.png)
+
+
+
 # 结语
 
 因为使用 IpointerXXXHandler 这套事件接口，淡化了 Touch 和 Input API ，所以：
