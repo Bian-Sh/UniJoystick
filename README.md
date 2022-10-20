@@ -103,8 +103,10 @@ If you want to set a target version, uses the tag so you can specify a version l
 
 1. 这个摇杆理论上是支持各种各样的多点触控设备的
 2. 支持同屏多个摇杆实例且互不干扰。
+3. Joystick 支持 Action Input System （示例代码和 touchpad 未做适配）
+   joystick support action input system except example as well as touchpad does not adapt action input system.
 
-ps ：在 Microsoft's Surface Pro 测试OK。
+ps ：在 Microsoft's Surface Pro 、小米Pad 9 测试OK。
 
 > My Blog
 
