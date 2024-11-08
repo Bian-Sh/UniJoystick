@@ -15,8 +15,7 @@ namespace zFrame.UI
         [SerializeField] bool showDirectionArrow = true; // 是否展示指向器
         [Space(8)]
         public JoystickEvent OnValueChanged = new JoystickEvent(); //事件 ： 摇杆被 拖拽时
-        private Canvas rootCanvas;
-        
+
         #region Property
         public bool IsDraging { get { return fingerId != int.MinValue; } } //摇杆拖拽状态
         public bool ShowDirectionArrow { get => showDirectionArrow; set => showDirectionArrow = value; }  // 是否展示指向器
@@ -35,12 +34,7 @@ namespace zFrame.UI
         #endregion
 
         #region MonoBehaviour functions
-        void Start()
-        {
-	        rootCanvas = transform.root.GetComponent<Canvas>();
-	        backGroundOriginLocalPostion = backGround.localPosition;
-        }
-        
+        void Start() => backGroundOriginLocalPostion = backGround.localPosition;
         void Update() => OnValueChanged.Invoke(knob.localPosition / maxRadius); //fixedupdate 为物理更新，摇杆操作放在常规 update 就好
         void OnDisable() => RestJoystick(); //意外被 Disable 各单位需要被重置
         void OnValidate() => ConfigJoystick(); //Inspector 发生改变，各单位需要重新配置，编辑器有效
@@ -70,15 +64,7 @@ namespace zFrame.UI
                 x = (activatedAxis == Direction.Both || activatedAxis == Direction.Horizontal) ? (direction.normalized * radius).x : 0, //确认是否激活水平轴向
                 y = (activatedAxis == Direction.Both || activatedAxis == Direction.Vertical) ? (direction.normalized * radius).y : 0       //确认是否激活垂直轴向，激活就搞事情
             };
-            // knob.localPosition = localPosition;      //更新 Handle 位置
-            Vector2 anchoredPosition = eventData.delta / rootCanvas.scaleFactor;
-            ((RectTransform)knob).anchoredPosition += anchoredPosition;
-            
-            // 限制摇杆范围
-            float knobDistance = Mathf.Clamp(Vector2.Distance(Vector2.zero, ((RectTransform)knob).anchoredPosition), 0, maxRadius); // 获取摇杆当前位置到中心的距离，并限制在最大范围内
-            Vector2 normalizedPosition = ((RectTransform)knob).anchoredPosition.normalized; // 获取摇杆当前位置的单位向量
-            ((RectTransform)knob).anchoredPosition = normalizedPosition * knobDistance; // 将摇杆位置限制在最大范围内
-            
+            knob.localPosition = localPosition;      //更新 Handle 位置
             if (showDirectionArrow)
             {
                 if (!arrow.gameObject.activeInHierarchy) arrow.gameObject.SetActive(true);
