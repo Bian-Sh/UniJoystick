@@ -17,7 +17,7 @@
    * 第三人称 Charactor 控制
    * 常规Transform.Translate控制
 7. 适配 Canvas 的 三种 RenderMode。
-8. 鼠标和Touch拖拽前需要检测是否打到 UI 组件，这里有[正确姿势](https://github.com/Bian-Sh/UniJoystick/blob/master/Assets/Joystick/Scripts/InputExtension.cs)
+8. 鼠标和Touch拖拽前需要检测是否打到 UI 组件，这里有[正确姿势](https://github.com/Bian-Sh/UniJoystick/blob/master/Packages/Joystick/Runtime/InputExtension.cs)
 
 # Installation
 
